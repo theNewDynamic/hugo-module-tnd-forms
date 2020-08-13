@@ -1,0 +1,13 @@
+{{/* 
+	Print default markup for textarea input
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@context Map
+		String (.type)
+		String (.name)
+		Map (.css)	
+*/}}
+<textarea class="{{ .css.textarea }}" type="{{ .type }}" id="id-{{ .name }}" name="{{ .name }}"{{ with .required }} required {{ end }}></textarea>

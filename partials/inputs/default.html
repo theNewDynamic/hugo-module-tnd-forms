@@ -1,0 +1,16 @@
+{{/* 
+	Print default markup for following types:
+	- text
+	- phone
+	- email
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@context Map
+		String (.type)
+		String (.name)
+		Map (.css)	
+*/}}
+<input class="{{ .css.input }}" type="{{ .type }}" id="id-{{ .name }}" name="{{ .name }}"{{ with .required }} required {{ end }}>

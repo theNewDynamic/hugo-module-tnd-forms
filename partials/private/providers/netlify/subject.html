@@ -1,0 +1,4 @@
+{{/* Netlify consumes a input[name="subject"][type="hidden"] to produce email notif subjects */}}
+{{ with .subject }}
+<input type="hidden" name="subject" value="{{ . }}">
+{{ end }}

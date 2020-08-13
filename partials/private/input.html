@@ -1,0 +1,57 @@
+{{/* 
+	Print a form input group using the data passed as context,
+	loads appropriate input's partial
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@context Map 
+						String (.name)
+						String (.label)
+						String (.type)
+						Slice (.options)
+						Bool (.required)
+
+	@use
+		- private/GetConfig
+		- private/GetCSSClasses
+
+*/}}
+{{ $type := default "text" .type }}
+{{ $template := $type }}
+{{ $config := partialCached "tnd-forms/private/GetConfig" . "tnd_forms_config" }}
+{{ $output_classes := "" }}
+{{ $classes := partialCached "tnd-forms/private/GetCSSClasses" "GetCSSClasses" }}
+{{ with $classes }}
+	{{ $output_classes = .control }}
+	{{ with $.required }}
+		{{ $output_classes = add $output_classes " " }}
+		{{ with $classes.require }}
+			{{ $output_classes = add $output_classes (default "" $classes.require) }}
+		{{ end }}
+	{{ end }}
+	{{ with $.hide }}
+		{{ $output_classes = add $output_classes " " }}
+		{{ with $classes.hidden }}
+			{{ $output_classes = add $output_classes $classes.hidden }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+
+<div 
+	class="{{ $output_classes }}"
+	data-control-for="{{ .name }}"
+>
+	{{/* Some inputs types prints the label themselves */}}
+	{{ if not (in (slice "single-checkbox" "hidden") $type) }}
+		<label for="id-{{ .name }}" {{ with $classes.label }} class="{{ . }}"{{ end }}>
+			{{ .label | markdownify }} {{ with .required }} * {{ end }}
+		</label>
+	{{ end }}
+	
+	{{ if not (templates.Exists (printf "partials/tnd-forms/inputs/%s.html" $template)) }}
+		{{ $template = "default" }}
+	{{ end }}
+	{{ partial (printf "tnd-forms/inputs/%s" $template) . }}
+</div>

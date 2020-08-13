@@ -1,0 +1,23 @@
+{{/*
+  GetCSSClasses
+  Returns the map of classes as set in tnd_forms.css settings
+
+
+  @author @regisphilibert
+
+  @context Any (.)
+
+  @access private
+
+  @use
+    - private/GetConfig
+
+  @return Map
+*/}}
+{{ $classes := dict }}
+{{ $config := partialCached "tnd-forms/private/GetConfig" "GetConfig" }}
+{{ with $config.css }}
+  {{ $classes = . }}
+{{ end }}
+
+{{ return $classes }}

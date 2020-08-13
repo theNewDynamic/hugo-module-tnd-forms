@@ -1,0 +1,25 @@
+{{/*
+  GetProvider This get the provider for the form.
+
+  @author @regisphilbert
+
+  @context Map (.) Must be a form
+
+  @access public
+
+  @example - Go Template
+  {{ $provider := partial "tnd-forms/private/GetProvider" . }}
+*/}}
+{{/* Default is Netlify */}}
+{{ $provider := "netlify" }}
+{{ $config := partialCached "tnd-forms/private/GetConfig" . "GetConfig" }}
+{{/* If Provider is set globally */}}
+{{ with $config.provider }}
+  {{ $provider = . }}
+{{ end }}
+{{/* If Provider is set on the form itself */}}
+{{ with .provider }}
+  {{ $provider = . }}
+{{ end }}
+
+{{ return $provider }}

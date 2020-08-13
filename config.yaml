@@ -2,7 +2,11 @@ module:
   hugoVersion:
     min: "0.61.0"
   mounts:
+  - source: data
+    target: data
   - source: partials
-    target: layouts/partials/tnd-{moduleName}
+    target: layouts/partials/tnd-forms
+  - source: shortcodes
+    target: layouts/shortcodes
   - source: console
-    target: layouts/partials/tnd-{moduleName}
+    target: layouts/partials/tnd-forms

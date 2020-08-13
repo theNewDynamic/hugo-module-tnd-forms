@@ -1,0 +1,19 @@
+{{/*
+  Form
+  Act as a wrapper for private/form.html
+
+  @author @regisphilibert
+
+  @context String (.)
+
+  @access public
+
+  @use
+    - private/form
+
+  @example - Go Template
+    {{ partial "path" context }}
+    {{ partialCached "path" context "variant" }}
+*/}}
+
+{{ partialCached "tnd-forms/private/form.html" . . }}

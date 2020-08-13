@@ -1,0 +1,18 @@
+{{/* 
+	Call the TND Form form partial with unique parameter as context
+	
+	@author @regisphilibert
+	
+	@access public
+
+	@context string 
+
+	@use
+		- private/form
+
+	@example - Mardkown
+		{{< tnd-form "contact" >}}
+ */}}
+{{ with .Get 0 }}
+	{{ partial "tnd-forms/private/form" . }}
+{{ end }}

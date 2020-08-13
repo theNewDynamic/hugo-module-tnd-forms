@@ -1,0 +1,3 @@
+{{- if not .captcha -}}
+netlify-honeypot="{{ .title | sha1 }}"
+{{- end -}}

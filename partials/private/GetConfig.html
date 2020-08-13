@@ -11,13 +11,27 @@
   @return Map
 
   @example - Go Template
-    {{ with partialCached "tnd-{moduleName}/private/GetConfig" "GetConfig" }}
+    {{ with partialCached "tnd-forms/private/GetConfig" "GetConfig" }}
       {{ $config := . }}
     {{ end }}
 */}}
-{{ $config := dict }}
-{{ with site.Params.tnd_{moduleName} }}
-  {{ $config = . }}
+
+{{/* For now we have to add empty keys for css until code is refatored to take into account missing config classes */}}
+{{ $config := `
+css:
+  form: ''
+  control: ''
+  required: ''
+  submit: ''
+  input: ''
+  textarea: ''
+  label: ''
+  select: ''
+  select_wrapper: ''
+  select_fake: ''
+` | transform.Unmarshal }}
+{{ with site.Params.tnd_forms }}
+  {{ $config = merge $config . }}
 {{ end }}
 
 {{ return $config }}

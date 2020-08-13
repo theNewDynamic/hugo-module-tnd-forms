@@ -1,0 +1,71 @@
+{{/* 
+	Print a form using passed parameter as data/forms/{filename}
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@use
+		- tnd-forms/private/GetConfig
+		- tnd-forms/private/FormHasFileInput
+		- tnd-forms/private/GetProvider
+	@context string 
+*/}}
+{{ $form := false }}
+{{ $config := partialCached "tnd-forms/private/GetConfig" . "tnd_forms_config" }}
+{{ $css := partialCached "tnd-forms/private/GetCSSClasses" "GetCSSClasses" }}
+{{ with index site.Data "tnd-forms" }}
+	{{ range . }}
+		{{ if eq .id $ }}
+			{{ $form = . }}
+		{{ end }}
+	{{ end }}
+{{ end }}
+{{ with $form }}
+	{{ $upload := partial "tnd-forms/private/FormHasFileInput" . }}
+	{{ $provider := partial "tnd-forms/private/GetProvider" . }}
+	{{ $netlify := true }}
+	<form 
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "action.html" "context" .) | safeHTMLAttr }}
+		method="POST"
+		accept-charset="UTF-8"
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "name.html" "context" .) | safeHTMLAttr }}
+		{{/* If the form needs to use a script, it should leave as an entry
+		in the formScripts object of /assets/js/forms.js */}}
+		{{ with .js_use }}
+		data-js-use="{{ . }}"
+		{{ end }}
+		{{ $provider }}
+		{{/* If captcha is set to false, we default to Netlify's honeypot */}}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "honeypot.html" "context" .) | safeHTMLAttr }}
+		{{ with $upload }}
+			enctype="multipart/form-data"
+		{{ end }}
+		class="{{ $config.css.form }}"
+	>
+		{{/* We look for the form fields in data. */}}
+		{{ with .fields }}
+			{{ range . }}
+				{{/* We load the input partial which will handle specicif input type markup */}}
+				{{ $context := merge . (dict "css" $css) }}
+				{{ partial "tnd-forms/private/input" $context }}
+			{{ end }}
+		{{ end }}
+		{{/* CAPTCHA */}}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "captcha.html" "context" .) }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "subject.html" "context" .) }}
+
+		{{/* Only Formspree for now */}}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
+		<button class="{{ $config.css.submit }}" type="submit">
+ 			{{ default "Submit" .submit }}
+  	</button>
+	</form>
+{{ else }}
+{{/* If ID passed to shortcode does not match any existing form in data file: */}}
+<p>
+	We could not find data for the form "{{ . }}"
+</p>
+{{ end }}

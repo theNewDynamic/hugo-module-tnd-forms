@@ -1,0 +1,27 @@
+{{/*
+  FormHasFileInput
+  Check if a given form has a input of type file.
+
+  @author @regisphilbert
+
+  @context Map (.) Must be a form
+
+  @return Bool
+
+  @access public
+
+  @example - Go Template
+		{{ with partial "tnd-forms/private/FormHasFileInput" . }}
+			enctype="multipart/form-data"
+		{{ end }}
+*/}}
+{{ $upload := false }}
+{{/* Safely make sure the form has fields */}}
+{{ with .fields }}
+  {{/* If we find at least one input of file type: */}}
+  {{ with where . "type" "file" }}
+    {{ $upload = true }}
+  {{ end }}
+{{ end }}
+
+{{ return $upload }}

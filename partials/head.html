@@ -1,0 +1,20 @@
+{{/*
+  head
+  Print the link tag for the module's built in stylesheet
+
+  @author @regisphilibert
+
+  @context Any (.)
+
+  @access public
+
+  @example - Go Template
+    <head>
+      <title>My Website</title>
+      {{ partialCached "tnd-form/head.html . }}
+    </head>
+*/}}
+{{ with resources.Get "tnd-forms/style.scss" }}
+  {{ $style := . | toCSS }}
+  <link href="{{ $style.RelPermalink }}" rel="stylesheet">
+{{ end }}

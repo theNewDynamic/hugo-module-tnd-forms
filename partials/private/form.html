@@ -41,7 +41,7 @@
 		{{ with $upload }}
 			enctype="multipart/form-data"
 		{{ end }}
-		class="{{ $config.css.form }}"
+		class=" tnd-form {{ $config.css.form }}"
 	>
 		{{/* We look for the form fields in data. */}}
 		{{ with .fields }}
@@ -59,13 +59,11 @@
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
-		<button class="{{ $config.css.submit }}" type="submit">
+		<button class="tnd-form__submit {{ $config.css.submit }}" type="submit">
  			{{ default "Submit" .submit }}
   	</button>
 	</form>
 {{ else }}
 {{/* If ID passed to shortcode does not match any existing form in data file: */}}
-<p>
-	We could not find data for the form "{{ . }}"
-</p>
+{{ partial "tnd-forms/warn" (printf "We could not find data for the form \"%s\". No form will be displayed." .) }}
 {{ end }}

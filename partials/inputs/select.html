@@ -12,8 +12,8 @@
 		Map (.css)	
 */}}
 {{ with .options }}
-	<div class="{{ $.css.select_wrapper }}">
-		<select class="{{ default $.css.input $.css.select }}" name="{{ $.name }}" id="id-{{ $.name }}"{{ with $.required }} required {{ end }}>
+	<div class="tnd-form__select_wrapper {{ $.css.select_wrapper }}">
+		<select class="{{ $.css.select }}" name="{{ $.name }}" id="id-{{ $.name }}"{{ with $.required }} required {{ end }}>
 			{{ range . }}
 				<option value="{{ . }}">{{ . }}</option>
 			{{ end }}

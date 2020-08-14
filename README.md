@@ -188,13 +188,23 @@ Fill free to fill the form below to get in touch...
 
 ## Customization
 
+Module can load its own very basic styling by loading `tnd-forms/head.html` partial inside your project's template's `<head>` tag.
+
+```html
+<head>
+  <title>My Website</title>
+  {{ partialCached "tnd-form/head.html . }}
+</head>
+```
+**WARNING**: The above requires Hugo's extended version for SCSS processing.
+
 ### Styling through CSS classes.
 
-See config
+User can define which CSS classes to be added to each HTML elements printed by the Module. See config
 
 ### Styling through HTML templates
 
-Overwriting any input type HTML template is easy. Simply add to your project `layouts/partials/tnd-forms/inputs` directory any file named after an input type
+Overwriting any input type HTML template is easy. Simply add to your project `layouts/partials/tnd-forms/inputs` directory any file named after an existing input type.
 - default.html
 - select.html
 - hidden.html

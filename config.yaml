@@ -4,6 +4,8 @@ module:
   mounts:
   - source: data
     target: data
+  - source: assets
+    target: assets/tnd-forms
   - source: partials
     target: layouts/partials/tnd-forms
   - source: shortcodes

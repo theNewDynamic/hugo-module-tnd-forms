@@ -1,0 +1,20 @@
+{{/* 
+	Print markup for radios
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@context Map
+		String (.type)
+		String (.name)
+    Map (.css)
+    Slice (.options)
+*/}}
+{{ with .options }}
+  {{ range . }}
+    <div class="tnd-form__radio_wrapper">
+      <span class="tnd-form__radio_label {{ $.css.radio_label }}">{{ . }}</span><input type="radio" class="{{ $.css.checkbox }}" name="{{ $.name }}" id="id-{{ $.name | urlize }}">
+    </div>
+  {{ end }}
+{{ end }}

@@ -13,8 +13,13 @@ fields:
   - name: phone
     label: Your phone
     type: tel
-  - name: subject
-    label: Subject
+  - name: source
+    label: How did you hear from us?
+    type: radios
+    options:
+      - A friend
+      - Internet
+      - Ad
   - name: state
     label: State
     type: select
@@ -22,3 +27,6 @@ fields:
   - name: message
     label: Message
     type: textarea
+  - name: agree
+    type: checkbox
+    label: Do you agree with everything we will every say?

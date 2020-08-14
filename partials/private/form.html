@@ -65,5 +65,5 @@
 	</form>
 {{ else }}
 {{/* If ID passed to shortcode does not match any existing form in data file: */}}
-{{ partial "tnd-forms/warn" (printf "We could not find data for the form \"%s\". No form will be displayed." .) }}
+{{ $silent := partial "tnd-forms/warn" (printf "We could not find data for the form \"%s\". No form will be displayed." .) }}
 {{ end }}

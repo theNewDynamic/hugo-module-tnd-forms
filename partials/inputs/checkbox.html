@@ -1,0 +1,15 @@
+{{/* 
+	Print markup for single checkbox input
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@context Map
+		String (.type)
+		String (.name)
+		Map (.css)	
+*/}}
+<div class="tnd-form__checkbox_wrapper">
+	<label class="tnd-form__checkbox_label {{ $.css.checkbox_label }}">{{ $.label }}</label><input type="checkbox" class="{{ $.css.checkbox }}" name="{{ $.name }}" id="id-{{ $.name | urlize }}">
+</div>

@@ -102,6 +102,29 @@ Will use the same template with the defined type attribute
     ...
 ```
 
+**checkboxes|radios**:
+  A mutiple choice field using either checkboxes or radios. Use `radios` type for radios and `checkboxes` for multiple checboxes.
+
+```yaml
+  - name: source
+    label: How did you hear from us?
+    type: radios
+    options:
+      - A friend
+      - Internet
+      - Ad
+```
+
+**checkbox**
+
+  A single checkbox field
+
+```yaml
+  - type: checkbox
+    name: agree
+    label: Do you agree with everything we will every say?
+```
+
 ### Settings
 
 Settings are added to the project's parameter under the `tnd_forms` map as shown below.

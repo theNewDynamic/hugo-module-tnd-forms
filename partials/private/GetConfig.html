@@ -29,6 +29,10 @@ css:
   select: ''
   select_wrapper: ''
   select_fake: ''
+  checkbox: ''
+  checkbox_label: ''
+  radio: ''
+  radio_label: ''
 ` | transform.Unmarshal }}
 {{ with site.Params.tnd_forms }}
   {{ $config = merge $config . }}

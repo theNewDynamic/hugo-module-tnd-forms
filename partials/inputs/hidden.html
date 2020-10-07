@@ -8,6 +8,8 @@
 	@context Map
 		String (.type)
 		String (.name)
+		String (.label)
+		String (.value)?
 		Map (.css)	
 */}}
-<input type="hidden" id="id-{{ .name }}" name="{{ .name }}">
+<input type="hidden" id="id-{{ .name }}" name="{{ .name }}" value="{{ default .label .value }}">

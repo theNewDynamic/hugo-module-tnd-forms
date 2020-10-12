@@ -31,9 +31,17 @@ module:
   - path: github.com/theNewDynamic/hugo-module-tnd-forms
 ```
 
+## Providers
+
+Currently the Module supports [Netlify Forms](https://www.netlify.com/products/forms/) and [Formspree.io](https://formspree.io/). Any form can use any of the supported provider regardless of the default provider of the website.
+
+### Formspree
+
+Formspree requires the Form ID passed to the Form's Data as `formspree_id`
+
 ## Usage
 
-### Add Forms
+### Create Forms
 
 Forms are handle as unique data files stored under `data/tnd-forms`
 
@@ -41,6 +49,8 @@ Forms are handle as unique data files stored under `data/tnd-forms`
 
 ```yaml
 id: contact
+# if using Formspree
+formspree_id: sxewrre33
 title: Contact Us
 redirect: /thank-you/
 submit: Get in touch
@@ -79,9 +89,39 @@ fields:
 - type:
   The type of input as detailed below.
 
+### Add form to pages.
+
+A single argument shortcode can be added to any content file's body. The argument should be a string matching the form's `id`.
+
+```markdown
+---
+title: Contact Us
+---
+
+Fill free to fill the form below to get in touch...
+
+{{< tnd-form "contact" >}}
+```
+
+### Add form to templates.
+
+Any form can be invoked from within a template using the `tnd-forms/form.html` partial. The context should be a string matching the form's `id`.
+
+```html
+<!-- layouts/_default/contact.html -->
+{{ define "main" }}
+<section class="content">
+  {{ .Content }}
+</section>
+<section class="contact">
+  {{ partial "tnd-forms/form" "contact" }}
+</section>
+{{ end }}
+```
+
 #### Built in Field types
 
-**text|phone|email|file|textarea|hidden**:
+**text|phone|email|file|textarea**:
 Will use the same template with the defined type attribute
 ```yaml
   - name: name
@@ -122,8 +162,22 @@ Will use the same template with the defined type attribute
 ```yaml
   - type: checkbox
     name: agree
-    label: Do you agree with everything we will every say?
+    label: Do you agree with everything we will ever say?
 ```
+
+**hidden**
+
+  A hidden field
+
+```yaml
+  - type: hidden
+    name: lang_code
+    # `label` will be used to fill the `value` attribute if `value` is not set:
+    label: en
+    value: en
+```
+
+In absence of the `value` setting, the module will use a hidden field's `label` setting for the `value` attribute.
 
 ### Settings
 
@@ -140,7 +194,7 @@ params:
 
 #### provider
 
-Any form can be using a specific provided amont the supported ones. To specify a global default provider, use this key.
+Any form can be using a specific provided among the supported ones. To specify a global default provider, use this key.
 
 #### css
 
@@ -183,32 +237,6 @@ fields:
     type: textarea
 ```
 
-**Editor** can print the form using the `tnd-form` shortcode on any content page.
-
-```markdown
----
-Contact US
----
-
-Fill free to fill the form below to get in touch...
-
-{{< tnd-form "contact" >}}
-```
-
-**Programmers** can call the code from any template file using the `tnd-forms/form.html` partial
-
-```html
-<!-- layouts/_default/contact.html -->
-{{ define "main" }}
-<section class="content">
-  {{ .Content }}
-</section>
-<section class="contact">
-  {{ partial "tnd-forms/form" "contact" }}
-</section>
-{{ end }}
-```
-
 ## Customization
 
 Module can load its own very basic styling by loading `tnd-forms/head.html` partial inside your project's template's `<head>` tag.
@@ -234,7 +262,7 @@ Overwriting any input type HTML template is easy. Simply add to your project `la
 - textarea.html
 etc...
 
-Check the original files for the available context. 
+Check the [original files](https://github.com/theNewDynamic/hugo-module-tnd-forms/tree/main/partials/inputs) for the available context. 
 
 ## Extanding
 

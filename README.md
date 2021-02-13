@@ -68,7 +68,7 @@ fields:
 - title: 
   The title displayed above the form
 - redirect: 
-  If successful submision should redirect to a page (Not available on Formspree free plan)
+  If successful submission should redirect to a page (Not available on Formspree free plan)
 - submit:
   Text for the submit button
 - fields:
@@ -143,7 +143,7 @@ Will use the same template with the defined type attribute
 ```
 
 **checkboxes|radios**:
-  A mutiple choice field using either checkboxes or radios. Use `radios` type for radios and `checkboxes` for multiple checboxes.
+  A multiple choice field using either checkboxes or radios. Use `radios` type for radios and `checkboxes` for multiple checkboxes.
 
 ```yaml
   - name: source
@@ -198,7 +198,7 @@ Any form can be using a specific provided among the supported ones. To specify a
 
 #### css
 
-A map containing certain HTML elements produced by the Module's templates. Builtin class key are:
+A map containing certain HTML elements produced by the Module's templates. Built-in class key are:
   - form
   - control
   - hidden 
@@ -264,7 +264,7 @@ etc...
 
 Check the [original files](https://github.com/theNewDynamic/hugo-module-tnd-forms/tree/main/partials/inputs) for the available context. 
 
-## Extanding
+## Extending
 
 ### Adding your own field type.
 
@@ -286,4 +286,4 @@ Note that any data passed to the field will be made available to your template's
 
 ## theNewDynamic
 
-This project is maintained and love by [thenewDynamic](https://www.thenewdynamic.com).
+This project is maintained and loved by [thenewDynamic](https://www.thenewdynamic.com).

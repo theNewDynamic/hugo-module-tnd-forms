@@ -25,6 +25,9 @@
 	{{ $upload := partial "tnd-forms/private/FormHasFileInput" . }}
 	{{ $provider := partial "tnd-forms/private/GetProvider" . }}
 	{{ $netlify := true }}
+	{{ with .recaptcha }}
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	{{ end }}
 	<form 
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "action.html" "context" .) | safeHTMLAttr }}
 		method="POST"
@@ -59,6 +62,9 @@
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
+		{{ with .recaptcha }}
+		<div class="g-recaptcha" data-sitekey="{{ . }}"></div>
+		{{ end }}
 		<button class="tnd-form__submit {{ $config.css.submit }}" type="submit">
  			{{ default "Submit" .submit }}
   	</button>

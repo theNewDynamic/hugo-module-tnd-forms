@@ -14,13 +14,18 @@
 
 */}}
 {{ $reca := dict }}
+{{ $provider := partial "tnd-forms/private/GetProvider" . . }}
 {{ $key := "" }}
 {{ $version := 0 }}
 {{ with .recaptcha }}
   {{ with .key }}
     {{ $key = . }}
-    {{/* If a key is found we default to V3 */}}
-    {{ $version = 3 }}
+    {{/* If a key is found we default to V3 for Formspree and V2 For Netlify */}}
+    {{ if eq $provider "netlify" }}
+      {{ $version = 2 }}
+    {{ else }}
+      {{ $version = 3 }}
+    {{ end }}
   {{ end }}
   {{ with .version }}
     {{ $version = int . }}

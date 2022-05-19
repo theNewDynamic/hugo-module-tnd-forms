@@ -1,0 +1,7 @@
+{{- with $recapatcha := partialCached "tnd-forms/private/GetRecaptchaData" . . -}}
+{{ if lt .version 3 }}
+data-netlify-recaptcha="true"
+{{ else }}
+{{ partial "tnd-forms/warn" "Netlify does not support reCapatcha V3 yet." }}
+{{ end }}
+{{- end -}}

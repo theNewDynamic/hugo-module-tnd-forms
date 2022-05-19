@@ -1,0 +1,9 @@
+{{ with $recaptcha := partialCached "tnd-forms/private/GetRecaptchaData" . . }}
+  {{ with .key }}
+    {{ if gt $recaptcha.version 2 }}
+    <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+    {{ else }}
+    <div class="g-recaptcha" data-sitekey="{{ . }}"></div>
+    {{ end }}
+  {{ end }}
+{{ end }}

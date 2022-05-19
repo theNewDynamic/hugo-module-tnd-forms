@@ -23,32 +23,17 @@
 	{{ end }}
 {{ end }}
 {{ with $form }}
+	{{ $recaptcha := partialCached "tnd-forms/private/GetRecaptchaData" . . }}
 	{{ $upload := partial "tnd-forms/private/FormHasFileInput" . }}
 	{{ $provider := partial "tnd-forms/private/GetProvider" . }}
-	{{ $recaptcha := partialCached "tnd-forms/private/GetRecaptchaData" . }}
 	{{ $netlify := true }}
-	{{ with $recaptcha }}
-		{{ with .key }}
-			{{ if gt $recaptcha.version 2 }}
-				<script src="https://www.google.com/recaptcha/api.js?render={{ . }}"></script>
-				<script>
-						grecaptcha.ready(function () {
-								grecaptcha.execute('{{ . }}', {action: 'submit'}).then(function (token) {
-										console.info("got token: " + token);
-										document.getElementById('g-recaptcha-response').value = token;
-								});
-						});
-				</script>
-			{{ else }}
-				<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-			{{ end }}
-		{{ end }}
-	{{ end }}
+	{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-scripts.html" "context" .) }}
 	<form 
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "action.html" "context" .) | safeHTMLAttr }}
 		method="POST"
 		accept-charset="UTF-8"
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "name.html" "context" .) | safeHTMLAttr }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-attr.html" "context" .) | safeHTMLAttr}}
 		{{/* If the form needs to use a script, it should leave as an entry
 		in the formScripts object of /assets/js/forms.js */}}
 		{{ with .js_use }}
@@ -78,15 +63,7 @@
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
-		{{ with $recaptcha }}
-			{{ with .key }}
-				{{ if gt $recaptcha.version 2 }}
-				<input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-				{{ else }}
-				<div class="g-recaptcha" data-sitekey="{{ . }}"></div>
-				{{ end }}
-			{{ end }}
-		{{ end }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-input.html" "context" .) }}
 		<button class="tnd-form__submit {{ $config.css.submit }}" type="submit">
  			{{ default "Submit" .submit }}
   	</button>

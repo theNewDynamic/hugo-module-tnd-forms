@@ -1,0 +1,33 @@
+{{/*
+  GerRecaptchaData
+  Retrieve and format recaptcha options from a form
+
+  @author @regisphilibert
+
+  @context Map ()
+
+  @access private
+
+  @returns Map
+    String (.key)
+    Int (.version)
+
+*/}}
+{{ $reca := dict }}
+{{ $key := "" }}
+{{ $version := 0 }}
+{{ with .recaptcha }}
+  {{ with .key }}
+    {{ $key = . }}
+    {{/* If a key is found we default to V3 */}}
+    {{ $version = 3 }}
+  {{ end }}
+  {{ with .version }}
+    {{ $version = int . }}
+  {{ end }}
+{{ end }}
+{{ with $key }}
+  {{ $reca = dict "key" $key "version" $version "type" $type }}
+{{ end }}
+
+{{ return $reca }}

@@ -1,0 +1,23 @@
+{{/* 
+	Print default markup for group type
+  This one groups several inputs under the same container
+	
+	@author @regisphilibert
+	
+	@access private
+
+	@context Map
+		String (.type)
+		String (.name)
+		Map (.css)
+*/}}
+{{ $css := partialCached "tnd-forms/private/GetCSSClasses" "GetCSSClasses" }}
+<div class="tnd-form__group">
+  {{ with .fields }}
+    {{ range . }}
+      {{/* We load the input partial which will handle specicif input type markup */}}
+      {{ $context := merge . (dict "css" $css) }}
+      {{ partial "tnd-forms/private/input" $context }}
+    {{ end }}
+{{ end }}
+</div>

@@ -31,4 +31,20 @@
       box-shadow: 1px 1px 2px rgba(0,0,0, 0.5);
     }
   }
+ 
 }
+
+@media (min-width: 500px){
+  .tnd-form__group{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .tnd-form__control{
+      width: 100%;
+    }
+    .tnd-form__control + .tnd-form__control{
+      margin-left: 1rem;
+    }
+  }
+}
+

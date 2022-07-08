@@ -54,6 +54,7 @@ formspree_id: sxewrre33
 title: Contact Us
 redirect: /thank-you/
 submit: Get in touch
+recaptcha: 6LctEP0fAAAxxxxxxxxxxxxxxxxxxxxxx
 fields:
 - name: name
   required: true
@@ -71,6 +72,8 @@ fields:
   If successful submission should redirect to a page (Not available on Formspree free plan)
 - submit:
   Text for the submit button
+- recaptcha:
+  [reCaptcha](https://www.google.com/recaptcha/about/) Site Key, if set, the form will load the recaptcha script and load the g-recaptcha div
 - fields:
   List of fields for which data will be detailed below
 
@@ -194,7 +197,7 @@ params:
 
 #### provider
 
-Any form can be using a specific provided among the supported ones. To specify a global default provider, use this key.
+Any form can be using a specific provided among the supported ones. To specify a global default provider, use this key. Default is `netlify`.
 
 #### css
 
@@ -244,7 +247,7 @@ Module can load its own very basic styling by loading `tnd-forms/head.html` part
 ```html
 <head>
   <title>My Website</title>
-  {{ partialCached "tnd-form/head.html . }}
+  {{ partialCached "tnd-forms/head.html" . }}
 </head>
 ```
 **WARNING**: The above requires Hugo's extended version for SCSS processing.

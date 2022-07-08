@@ -14,6 +14,7 @@
 {{ $form := false }}
 {{ $config := partialCached "tnd-forms/private/GetConfig" . "tnd_forms_config" }}
 {{ $css := partialCached "tnd-forms/private/GetCSSClasses" "GetCSSClasses" }}
+
 {{ with index site.Data "tnd-forms" }}
 	{{ range . }}
 		{{ if eq .id $ }}
@@ -22,14 +23,17 @@
 	{{ end }}
 {{ end }}
 {{ with $form }}
+	{{ $recaptcha := partialCached "tnd-forms/private/GetRecaptchaData" . . }}
 	{{ $upload := partial "tnd-forms/private/FormHasFileInput" . }}
 	{{ $provider := partial "tnd-forms/private/GetProvider" . }}
 	{{ $netlify := true }}
+	{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-scripts.html" "context" .) }}
 	<form 
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "action.html" "context" .) | safeHTMLAttr }}
 		method="POST"
 		accept-charset="UTF-8"
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "name.html" "context" .) | safeHTMLAttr }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-attr.html" "context" .) | safeHTMLAttr}}
 		{{/* If the form needs to use a script, it should leave as an entry
 		in the formScripts object of /assets/js/forms.js */}}
 		{{ with .js_use }}
@@ -59,6 +63,7 @@
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-input.html" "context" .) }}
 		<button class="tnd-form__submit {{ $config.css.submit }}" type="submit">
  			{{ default "Submit" .submit }}
   	</button>

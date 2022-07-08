@@ -44,7 +44,7 @@
 	data-control-for="{{ .name }}"
 >
 	{{/* Some inputs types prints the label themselves */}}
-	{{ if not (in (slice "checkbox" "hidden") $type) }}
+	{{ if not (in (slice "checkbox" "hidden" "group") $type) }}
 		<label for="id-{{ .name }}" class="{{ $classes.label }} tnd-form__label">
 			{{ .label | markdownify }} {{ with .required }} * {{ end }}
 		</label>

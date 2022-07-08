@@ -247,7 +247,7 @@ Module can load its own very basic styling by loading `tnd-forms/head.html` part
 ```html
 <head>
   <title>My Website</title>
-  {{ partialCached "tnd-form/head.html . }}
+  {{ partialCached "tnd-forms/head.html" . }}
 </head>
 ```
 **WARNING**: The above requires Hugo's extended version for SCSS processing.

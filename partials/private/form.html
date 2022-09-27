@@ -62,6 +62,7 @@
 		{{/* Only Formspree for now */}}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "to.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-input.html" "context" .) }}
 		<button class="tnd-form__submit {{ $config.css.submit }}" type="submit">

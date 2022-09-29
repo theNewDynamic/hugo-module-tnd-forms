@@ -19,6 +19,7 @@
 
 */}}
 {{ $type := default "text" .type }}
+{{ $label := .label | default (humanize .name) }}
 {{ $template := $type }}
 {{ $config := partialCached "tnd-forms/private/GetConfig" . "tnd_forms_config" }}
 {{ $output_classes := "" }}
@@ -46,7 +47,7 @@
 	{{/* Some inputs types prints the label themselves */}}
 	{{ if not (in (slice "checkbox" "hidden" "group") $type) }}
 		<label for="id-{{ .name }}" class="{{ $classes.label }} tnd-form__label">
-			{{ .label | markdownify }} {{ with .required }} * {{ end }}
+			{{ $label | markdownify }} {{ with .required }} * {{ end }}
 		</label>
 	{{ end }}
 	

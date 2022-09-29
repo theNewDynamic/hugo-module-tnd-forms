@@ -1,0 +1,5 @@
+{{ $id := .id }}
+{{ with .inbox_key }}
+  {{ $id = . }}
+{{ end }}
+<input type="hidden" name="inbox_key" value="{{ $id }}">

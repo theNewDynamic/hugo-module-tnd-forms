@@ -55,16 +55,22 @@
 				{{ partial "tnd-forms/private/input" $context }}
 			{{ end }}
 		{{ end }}
+
 		{{/* CAPTCHA */}}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "captcha.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "subject.html" "context" .) }}
 
-		{{/* Only Formspree for now */}}
+		{{/* Used by CloudCannon */}}
+		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "inbox_key.html" "context" .) }}
+
+		{{/* Used by Formspree and CloudCannon */}}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "redirect.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "cc.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "to.html" "context" .) }}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "gotcha.html" "context" .) }}
+		{{/* Only Formspree for now */}}
 		{{ partial "tnd-forms/private/providers/partial.html" (dict "partial" "recaptcha-input.html" "context" .) }}
+		
 		<button class="tnd-form__submit {{ $config.css.submit }}" type="submit">
  			{{ default "Submit" .submit }}
   	</button>

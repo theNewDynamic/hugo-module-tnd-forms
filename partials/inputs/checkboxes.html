@@ -14,7 +14,7 @@
 {{ with .options }}
   {{ range . }}
     <div class="tnd-form__checkbox_wrapper">
-      <span class="tnd-form__checkbox_label {{ $.css.checkbox_label }}">{{ . }}</span><input type="checkbox" class="{{ $.css.checkbox }}" name="{{ $.name }}" id="id-{{ $.name | urlize }}">
+      <span class="tnd-form__checkbox_label {{ $.css.checkbox_label }}">{{ . }}</span><input type="checkbox" class="{{ $.css.checkbox }}" name="{{ $.name }}" value="{{ . }}" id="id-{{ $.name | urlize }}">
     </div>
   {{ end }}
 {{ end }}

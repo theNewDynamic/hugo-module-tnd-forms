@@ -6,6 +6,7 @@ This module enables forms from several services on a Hugo Projects
 
 - Netlify Forms
 - Formspree
+- CloudCannon
 
 ## Requirements
 
@@ -54,7 +55,9 @@ formspree_id: sxewrre33
 title: Contact Us
 redirect: /thank-you/
 submit: Get in touch
-recaptcha: 6LctEP0fAAAxxxxxxxxxxxxxxxxxxxxxx
+recaptcha:
+  version: 3
+  key: 6LctEP0fAAAxxxxxxxxxxxxxxxxxxxxxx
 fields:
 - name: name
   required: true
@@ -73,7 +76,7 @@ fields:
 - submit:
   Text for the submit button
 - recaptcha:
-  [reCaptcha](https://www.google.com/recaptcha/about/) Site Key, if set, the form will load the recaptcha script and load the g-recaptcha div
+  [reCaptcha](https://www.google.com/recaptcha/about/) A map with Key (`key`) and optional `version`, if set, the form will load the recaptcha script and load the g-recaptcha div
 - fields:
   List of fields for which data will be detailed below
 

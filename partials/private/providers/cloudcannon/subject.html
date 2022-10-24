@@ -1,0 +1,4 @@
+{{/* Formspree consumes a input[name="_subject"][type="hidden"] to produce email notif subjects */}}
+{{ with .subject }}
+<input type="hidden" name="_subject" value="{{ . }}">
+{{ end }}

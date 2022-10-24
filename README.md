@@ -34,11 +34,20 @@ module:
 
 ## Providers
 
-Currently the Module supports [Netlify Forms](https://www.netlify.com/products/forms/) and [Formspree.io](https://formspree.io/). Any form can use any of the supported provider regardless of the default provider of the website.
+Currently the Module supports 
+- [Formspree.io](https://formspree.io/)
+- [Netlify Forms](https://www.netlify.com/products/forms/)
+- [CloudCannon Forms](https://cloudcannon.com/documentation/articles/getting-started-with-forms-on-cloudcannon/?ssg=Hugo)
+
+Formspree.io can be used with any host, while the other two only work if hosting with them.
 
 ### Formspree
 
 Formspree requires the Form ID passed to the Form's Data as `formspree_id`
+
+### CloudCannon
+
+A CloudCannon form inbox must be [created](https://cloudcannon.com/documentation/articles/creating-an-inbox-to-receive-your-forms/?ssg=Hugo) on the CloudCannon dashboard of your site/organizzation. Then user can use `inbox_key` to assign the inbox to the form. Without the key, we'll use the form's `id`.
 
 ## Usage
 
@@ -52,6 +61,8 @@ Forms are handle as unique data files stored under `data/tnd-forms`
 id: contact
 # if using Formspree
 formspree_id: sxewrre33
+# If using CloudCannon: It defaults on the form's `id` set above.
+inbox_key: concat-cc-en
 title: Contact Us
 redirect: /thank-you/
 submit: Get in touch
@@ -201,6 +212,22 @@ params:
 #### provider
 
 Any form can be using a specific provided among the supported ones. To specify a global default provider, use this key. Default is `netlify`.
+
+#### recaptcha
+
+Using a [Google reCapatcha](https://www.google.com/recaptcha/about/)?, You shoud set both key and desired version on the form data itself like so: 
+
+```yaml
+id: contact
+title: Contact Us
+recaptcha:s
+  version: 3
+  key: 6LctEP0fAAAxxxxxxxxxxxxxxxxxxxxxx
+```
+
+`version` is optional and will default to `2` for Netlify and `3` for other providers.
+
+WARNING: Netlify only supports V2. For V3 you should use Formspring or CloudCannon.
 
 #### css
 

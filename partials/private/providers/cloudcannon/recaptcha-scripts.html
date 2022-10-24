@@ -1,0 +1,18 @@
+{{ $recaptcha := partialCached "tnd-forms/private/GetRecaptchaData" . . }}
+{{ with $recaptcha }}
+  {{ with .key }}
+    {{ if gt $recaptcha.version 2 }}
+      <script src="https://www.google.com/recaptcha/api.js?render={{ . }}"></script>
+      <script>
+          grecaptcha.ready(function () {
+              grecaptcha.execute('{{ . }}', {action: 'submit'}).then(function (token) {
+                  console.info("got token: " + token);
+                  document.getElementById('g-recaptcha-response').value = token;
+              });
+          });
+      </script>
+    {{ else }}
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    {{ end }}
+  {{ end }}
+{{ end }}
